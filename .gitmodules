@@ -1,0 +1,3 @@
+[submodule "uui_modules"]
+	path = uui_modules
+	url = https://github.com/bharatph/uui_modules
