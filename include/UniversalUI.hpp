@@ -3,31 +3,33 @@
 
 #include<iostream>
 #include<mutex>
+#include<map>
 #include<clog/clog.h>
 
 #include"config.h"
 
 using namespace std;
-
-class UI
+namespace uui
 {
-	
+class UI
+{	
+	private:
+		UI();
 	protected:
 		static UI *instance;
-		static std::mutex ui_mutex;
 		static UI *get_instance();
+		static map<std::string, void (*)(UI *, void *)> *ui_commands;
 	public:
-	UI(){
-	}
-	typedef enum {
+	typedef enum
+	{
 		DISPLAY,
 		PROMPT
-	} action;	
-
-	virtual void error(std::string, std::string="OK"){
-	}
-	virtual void alert(std::string, action=PROMPT, std::string="OK", std::string="Cancel"){
-	}
+	} action;
+	virtual void set(std::string, void (*)(UI *,void *));
+	virtual void run(std::string, void * = nullptr);
+	virtual void error(std::string, std::string="OK");
+	virtual void alert(std::string, action=PROMPT, std::string="OK", std::string="Cancel");
 };
-
+	typedef void (*callback_function)(UI *, void *);
+}
 #endif
