@@ -19,3 +19,5 @@ The User Interface selection can be decided in compile time.
 ```
 UI *ui = new WebUI(); //you can guess from the syntax
 ```
+#### Updates of Vision @ 2%
+Fully focuesd on getting the GUI FLTK thing running. Conventional GUI application cannot be created with this library it seems. No one wants a screen full of commands listed in grid like layout. To achieve GUI level GUI... maybe we can use hierarchy based commands, sub-commands, cohesive-objects?

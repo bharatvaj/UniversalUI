@@ -6,22 +6,21 @@ std::map<std::string, callback_function> *uui::UI::ui_commands=nullptr;
 
 uui::UI::UI()
 {
-	ui_commands = new map<std::string, callback_function>();
-}
-
-uui::UI *uui::UI::get_instance()
-{
+	if(instance)
+	{
+		std::cout << "[FATAL] uui::UI cannot be instantiated more than once" << std::endl;
+		throw this;
+	}
 	std::mutex ui_mutex;
+	ui_mutex.lock();
 	if(!uui::UI::instance)
 	{
-		ui_mutex.lock();
-		if(!uui::UI::instance)
-			uui::UI::instance=new UI();
-		
-		ui_mutex.unlock();
+		uui::UI::instance=this;
+		ui_commands = new map<std::string, callback_function>();
 	}
-	return uui::UI::instance;
+	ui_mutex.unlock();
 }
+
 void uui::UI::set(std::string command, void (*callback)(uui::UI *, void *))
 {
 	//stub

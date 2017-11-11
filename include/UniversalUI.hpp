@@ -4,7 +4,9 @@
 #include<iostream>
 #include<mutex>
 #include<map>
+extern "C" {
 #include<clog/clog.h>
+}
 
 #include"config.h"
 
@@ -13,13 +15,11 @@ namespace uui
 {
 class UI
 {	
-	private:
-		UI();
 	protected:
 		static UI *instance;
-		static UI *get_instance();
 		static map<std::string, void (*)(UI *, void *)> *ui_commands;
 	public:
+	UI();
 	typedef enum
 	{
 		DISPLAY,
