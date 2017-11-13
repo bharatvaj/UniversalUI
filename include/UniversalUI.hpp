@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<mutex>
+#include<vector>
 #include<map>
 extern "C" {
 #include<clog/clog.h>
@@ -14,22 +15,29 @@ using namespace std;
 namespace uui
 {
 class UI
-{	
-	protected:
-		static UI *instance;
-		static map<std::string, void (*)(UI *, void *)> *ui_commands;
+{
 	public:
-	UI();
-	typedef enum
-	{
-		DISPLAY,
-		PROMPT
-	} action;
-	virtual void set(std::string, void (*)(UI *,void *));
-	virtual void run(std::string, void * = nullptr);
-	virtual void error(std::string, std::string="OK");
-	virtual void alert(std::string, action=PROMPT, std::string="OK", std::string="Cancel");
+		typedef enum
+		{
+			DISPLAY,
+			PROMPT
+		} action;
+		template <typename... T>
+		using callback = int (*)(UI *, T... t);
+
+		UI();
+
+		template <typename... T>
+		void set(std::string, callback<T...>, std::vector<std::string> *);
+
+		template <typename... T>
+		void run(std::string, T...);
+		void error(std::string, std::string="OK");
+		void alert(std::string, action=DISPLAY, std::string="OK", std::string="Cancel");
+
+	protected:
+		template <typename... T>
+		static std::map<std::string, callback<T...> > commands;
 };
-	typedef void (*callback_function)(UI *, void *);
 }
 #endif
