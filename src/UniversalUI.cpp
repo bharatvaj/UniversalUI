@@ -1,33 +1,20 @@
 #include <UniversalUI.hpp>
-using namespace uui;
-
-uui::UI *UI::instance=nullptr;
-std::map<std::string, callback_function> *uui::UI::ui_commands=nullptr;
 
 uui::UI::UI()
 {
-	if(instance)
-	{
-		std::cout << "[FATAL] uui::UI cannot be instantiated more than once" << std::endl;
-		throw this;
-	}
-	std::mutex ui_mutex;
-	ui_mutex.lock();
-	if(!uui::UI::instance)
-	{
-		uui::UI::instance=this;
-		ui_commands = new map<std::string, callback_function>();
-	}
-	ui_mutex.unlock();
+	//stub
 }
 
-void uui::UI::set(std::string command, void (*callback)(uui::UI *, void *))
+template <typename... T>
+void uui::UI::set(std::string name, uui::UI::callback<T...> cb, std::vector<std::string> *input_info)
 {
 	//stub
 }
-void uui::UI::run(std::string command, void *obj)
-{
 
+template <typename... T>
+void uui::UI::run(std::string name, T... t)
+{
+	//stub
 }
 void uui::UI::error(std::string msg, std::string ok_msg)
 {
