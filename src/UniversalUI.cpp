@@ -1,18 +1,27 @@
 #include <UniversalUI.hpp>
 
+uui::UI *uui::UI::instance = nullptr;
+std::map<std::string, uui::callback> *uui::UI::commands = nullptr;
+
 uui::UI::UI()
 {
-	//stub
+	if(instance == nullptr)
+	{
+		instance = this;
+		commands = new map<std::string, callback>();
+	}
+	else
+	{
+		log_inf("uui::UI", "Multiple uui::UI are illegal");
+	}
 }
 
-template <typename... T>
-void uui::UI::set(std::string name, uui::UI::callback<T...> cb, std::vector<std::string> *input_info)
+void uui::UI::set(std::string name, std::vector<std::string> *input_info, uui::callback cb)
 {
 	//stub
 }
 
-template <typename... T>
-void uui::UI::run(std::string name, T... t)
+void uui::UI::run(std::string name, void *args)
 {
 	//stub
 }

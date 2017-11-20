@@ -14,6 +14,8 @@ extern "C" {
 using namespace std;
 namespace uui
 {
+class UI;
+typedef int (*callback)(UI *, void *);
 class UI
 {
 	public:
@@ -22,22 +24,15 @@ class UI
 			DISPLAY,
 			PROMPT
 		} action;
-		template <typename... T>
-		using callback = int (*)(UI *, T... t);
-
-		UI();
-
-		template <typename... T>
-		void set(std::string, callback<T...>, std::vector<std::string> *);
-
-		template <typename... T>
-		void run(std::string, T...);
-		void error(std::string, std::string="OK");
-		void alert(std::string, action=DISPLAY, std::string="OK", std::string="Cancel");
+		virtual void set(std::string, std::vector<std::string> *, callback);
+		virtual void run(std::string, void *);
+		virtual void error(std::string, std::string="OK");
+		virtual void alert(std::string, action=DISPLAY, std::string="OK", std::string="Cancel");
 
 	protected:
-		template <typename... T>
-		static std::map<std::string, callback<T...> > commands;
+		static std::map<std::string, callback> *commands;
+		static UI *instance;
+		UI();
 };
 }
 #endif
