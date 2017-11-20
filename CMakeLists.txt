@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
 project(UniversalUI LANGUAGES C CXX VERSION 0.5 DESCRIPTION "Universal UI Library for C++")
-set (CMAKE_CXX_STANDARD 14)
 file(GLOB_RECURSE UniversalUI_HDRS "include/*.hpp")
 file(GLOB_RECURSE UniversalUI_SRCS "src/*.cpp")
 
