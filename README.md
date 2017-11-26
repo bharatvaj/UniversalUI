@@ -20,6 +20,9 @@ The User Interface selection can be decided in compile time.
 UI *ui = new WebUI(); //you can guess from the syntax
 ```
 
+#### Updates of Vision @ 5%
+run method now comes with a async option, whenever there is a need for threads one can simply specify it by using it as `ui->run("some_command", some_params, true)`. void uui::UI::wait_for(std::string) is added to wait for the specified thread(does not work as of this update, rather waits for all threads).
+
 #### Updates of Vision @ 4%
 Reverted to C style void \* callbacks, templates didn't work out sadly. For passing parameters every developer  must create a new struct, pass as struct and have to cast from void \* on the other side. Pretty stupid, but works.
 
