@@ -2,37 +2,35 @@
 #define USERINTERFACE_H
 
 #include <iostream>
-#include <map>
 #include <mutex>
-#include <thread>
 #include <vector>
-extern "C" {
+#include <map>
 #include <clog/clog.h>
-}
 
 #include "config.h"
 
 using namespace std;
-namespace uui {
-typedef enum { DISPLAY, PROMPT } action;
+namespace uui
+{
 class UI;
 typedef int (*callback)(UI *, void *);
-class UI {
-public:
-  virtual void set(std::string, std::vector<std::string> *, callback);
-  virtual void run(std::string, void *, bool = false);
-  virtual void error(std::string, std::string = "OK");
-  virtual int alert(std::string, action = DISPLAY, std::string = "OK",
-                    std::string = "Cancel");
-  virtual void wait_for(std::string);
-  virtual void exit();
+typedef enum {
+	DISPLAY,
+	PROMPT
+} action;
+class UI
+{
+  public:
+	UI *getInstance();
+	virtual void set(std::string, std::vector<std::string> *, callback);
+	virtual void run(std::string, void *);
+	virtual void error(std::string, std::string = "OK");
+	virtual void alert(std::string, action = DISPLAY, std::string = "OK", std::string = "Cancel");
 
-protected:
-  static std::map<std::string, callback> *commands;
-  static std::vector<std::thread> *threads;
-  static UI *instance;
-  // virtual void run_threaded(callback, void *) = 0;
-  UI();
+  protected:
+	static std::map<std::string, callback> *commands;
+	static UI *instance;
+	UI();
 };
-} // namespace uui
+}
 #endif
