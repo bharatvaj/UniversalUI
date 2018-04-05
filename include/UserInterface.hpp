@@ -12,7 +12,7 @@
 using namespace std;
 namespace uui
 {
-class UI;
+class UserInterface: IUI;
 typedef int (*callback)(UI *, void *);
 typedef enum {
 	DISPLAY,
