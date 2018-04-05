@@ -6,26 +6,31 @@
 #include <vector>
 #include <map>
 #include <clog/clog.h>
+#include <interface/IUI.hpp>
 
 #include "config.h"
 
 using namespace std;
 namespace uui
 {
-class UserInterface: IUI;
-typedef int (*callback)(UI *, void *);
 typedef enum {
 	DISPLAY,
 	PROMPT
 } action;
-class UI
+
+class UI;
+typedef int (*callback)(UI *, void *);
+
+class UI: public IUI
 {
+
   public:
 	UI *getInstance();
 	virtual void set(std::string, std::vector<std::string> *, callback);
-	virtual void run(std::string, void *);
+	virtual void run(std::string, void *, bool);
 	virtual void error(std::string, std::string = "OK");
-	virtual void alert(std::string, action = DISPLAY, std::string = "OK", std::string = "Cancel");
+	virtual int alert(std::string, action = DISPLAY, std::string = "OK", std::string = "Cancel");
+	virtual void close();
 
   protected:
 	static std::map<std::string, callback> *commands;

@@ -1,4 +1,4 @@
-#include <UniversalUI.hpp>
+#include <UI.hpp>
 
 uui::UI *uui::UI::instance = nullptr;
 std::map<std::string, uui::callback> *uui::UI::commands = nullptr;
@@ -23,7 +23,7 @@ void uui::UI::set(std::string name, std::vector<std::string> *input_info, uui::c
 	//stub
 }
 
-void uui::UI::run(std::string name, void *args)
+void uui::UI::run(std::string name, void *args, bool async)
 {
 	//stub
 }
@@ -32,7 +32,11 @@ void uui::UI::error(std::string msg, std::string ok_msg)
 	//stub
 }
 
-void uui::UI::alert(std::string msg, uui::action ac, std::string ok_msg, std::string cancel_msg)
+int uui::UI::alert(std::string msg, uui::action ac, std::string ok_msg, std::string cancel_msg)
 {
 	//stub
+}
+
+void uui::UI::close()
+{
 }
